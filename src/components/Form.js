@@ -17,6 +17,35 @@ export default class Form extends React.Component {
     }
   }
 
+  
+validateEmail=() =>{
+  const {email, password }= this.state;
+  if(email == ""){
+    this.setState({emailError: 'Please fill the email address'});
+    e = false;
+  } else{
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    if (reg.test(email) === false){
+      this.setState({emailError: 'not correct format for email address'});
+      e = false;
+    } else{
+      this.setState({emailError: ''});
+      e = true;
+    }
+  }
+}
+
+validatePassword=() =>{
+  const {email, password }= this.state;
+  if(password.trim().length < 6 || password.trim().length > 12){
+    this.setState({passwordError: 'please use atleat 6 -12 characters'});
+    p = false;
+  } else{
+    this.setState({passwordError: ''});
+    p = true;
+  }
+}
+
 loginFunction=() =>{
     const {email, password }= this.state;
     var e = false;
@@ -62,7 +91,9 @@ loginFunction=() =>{
           placeholderTextColor = "#d9d9d9"
           autoCapitalize = "none"
           value={this.state.email}
-          onChangeText = {email =>this.setState({email})}
+          textContentType="emailAddress"
+          onChangeText = {(email) =>{this.setState({email}); this.validateEmail(); }}
+          placeholderFontStyle="italic"
         />
         <Text style ={ styles.error }> {this.state.emailError}</Text> 
 
@@ -74,9 +105,12 @@ loginFunction=() =>{
           autoCapitalize = "none"
           value={this.state.password}
           secureTextEntry={true}
-            textContentType="password"
-          onChangeText = {password =>this.setState({password})}
-        />
+          textContentType="password"
+          returnKeyType = "go"
+          maxLength ={12}
+          //onChangeText = {password =>this.setState({password})}
+          onChangeText = {(password) =>{this.setState({password}); this.validatePassword(); }}
+       />
         <Text style ={ styles.error }> {this.state.passwordError}</Text> 
       
       <TouchableHighlight 
