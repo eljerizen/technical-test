@@ -9,7 +9,7 @@ import {
 
 export default class App extends React.Component {
   render() {
-    return (d
+    return (
       <View style={styles.container}>
         <KeyboardAvoidingView behavior ="padding">
           <Login/>
