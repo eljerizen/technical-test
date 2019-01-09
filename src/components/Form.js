@@ -21,8 +21,8 @@ export default class Form extends React.Component {
 validateEmail=() =>{
   const {email, password }= this.state;
   if(email == ""){
-    this.setState({emailError: 'Please fill the email address'});
     e = false;
+    this.setState({emailError: 'Please fill the email address'});
   } else{
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
     if (reg.test(email) === false){
@@ -90,7 +90,6 @@ loginFunction=() =>{
           placeholder = "Email"
           placeholderTextColor = "#d9d9d9"
           autoCapitalize = "none"
-          value={this.state.email}
           textContentType="emailAddress"
           onChangeText = {(email) =>{this.setState({email}); this.validateEmail(); }}
           placeholderFontStyle="italic"
